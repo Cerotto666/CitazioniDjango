@@ -17,11 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.home_libri, name='home_libri'),
+    path('autori/', views.home_autori, name='home_autori'),
     path('libro/<str:libro>/', views.citazioni_per_libro, name="citazioni_per_libro"),
-    path("autore/", views.citazioni_per_autore, name = "citazioni_per_autore"),
+    path("autore/<str:autore>/", views.citazioni_per_autore, name = "citazioni_per_autore"),
     path('aggiungi/', views.aggiungi_citazione, name='aggiungi_citazione')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

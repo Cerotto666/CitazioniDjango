@@ -1,7 +1,22 @@
 from django.shortcuts import render
+from inserisci.models import Citazione
 
-def home(request):
-    return render(request, 'home.html')
+def home_libri(request):
+    libri = Citazione.objects.values_list('nome_libro', flat=True).distinct()
+    context = {
+        'libri': libri
+    }
+    return render(request, 'home_libri.html', context)
+
+def home_autori(request):
+    autori = Citazione.objects.values_list('nome_autore', flat=True).distinct()
+    context = {
+        'autori':autori
+    }
+    return render(request, 'home_autori.html',context)
+
+
+
 
 def citazioni_per_libro(request, libro):
     context = {
@@ -9,11 +24,15 @@ def citazioni_per_libro(request, libro):
     }
     return render(request, 'placeholder.html', context)
 
-def citazioni_per_autore(request):
+def citazioni_per_autore(request, autore):
     context = {
-        
+        'message': f"Citazioni per l'autore {autore}"
     }
-    return render(request, 'archivioAutori.html', context)
+    return render(request, 'placeholder.html', context)
+
+
+
+
 
 def aggiungi_citazione(request):
     context = {

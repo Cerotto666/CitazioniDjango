@@ -15,25 +15,25 @@
     <div class="container mt-4">
         <!-- Titolo della Pagina -->
         <h1 class="text-center">
-            <i class="fas fa-book"></i> Archivio Libri
+            <i class="fas fa-user"></i> Archivio Autori
         </h1>
         
         <div class="row mt-5">
             <!-- Sezione Listbox -->
             <div class="col-md-8">
-                <h4 class="text-secondary"><i class="fas fa-list"></i> Elenco Libri</h4>
+                <h4 class="text-secondary"><i class="fas fa-list"></i> Elenco Autori</h4>
                 <div class="list-group" style="height: 300px; overflow-y: auto; border: 1px solid #ced4da; border-radius: 8px;">
-                    {% if libri %}
-                        {% for libro in libri %}
-                            <a href="{% url 'citazioni_per_libro' libro.nome_libro %}" 
+                    {% if autori %}
+                        {% for autore in autori %}
+                            <a href="{% url 'citazioni_per_autore' autore %}" 
                                class="list-group-item list-group-item-action">
-                                <i class="fas fa-book-open text-primary"></i> {{ libro.nome_libro }}
+                                <i class="fas fa-book-open text-primary"></i> {{ autore }}
                             </a>
                         {% endfor %}
                     {% else %}
                         <div class="text-center text-muted py-4">
                             <i class="fas fa-exclamation-circle fa-2x"></i>
-                            <p>Nessun libro disponibile</p>
+                            <p>Nessun autore disponibile</p>
                         </div>
                     {% endif %}
                 </div>
@@ -41,8 +41,8 @@
             
             <!-- Sezione Bottoni -->
             <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
-                <button class="btn btn-primary mb-3 w-100" onclick="window.location.href='{% url 'citazioni_per_autore'  %}'">
-                    <i class="fas fa-user"></i> Autori
+                <button class="btn btn-primary mb-3 w-100" onclick="window.location.href='{% url 'home_libri' %}'">
+                    <i class="fas fa-user"></i> Libri
                 </button>
                 <button class="btn btn-success w-100" onclick="window.location.href='{% url 'aggiungi_citazione' %}'">
                     <i class="fas fa-plus-circle"></i> Inserisci
