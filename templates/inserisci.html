@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserisci Citazione</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/inserisci.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-container mx-auto" style="max-width: 600px;">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-quote-left text-primary"></i> Inserisci Citazione
+            </h1>
+
+            <form method="post" action="{% url 'inserisci_citazione' %}">
+                {% csrf_token %}
+                <!-- Campo Libro -->
+                <div class="mb-4">
+                    <label for="libro" class="form-label">Libro</label>
+                    <input type="text" class="form-control" id="libro" name="libro" placeholder="Inserisci il nome del libro, ignoto se sconosciuto" required>
+                </div>
+
+                <!-- Campo Autore -->
+                <div class="mb-4">
+                    <label for="autore" class="form-label">Autore</label>
+                    <input type="text" class="form-control" id="autore" name="autore" placeholder="Inserisci il nome dell'autore, ignoto se sconosciuto" required>
+                </div>
+
+                <!-- Campo Citazione -->
+                <div class="mb-4">
+                    <label for="citazione" class="form-label">Citazione</label>
+                    <textarea class="form-control" id="citazione" name="citazione" rows="4" placeholder="Inserisci la citazione" required></textarea>
+                </div>
+
+                <!-- Campo Tags -->
+                <div class="mb-4">
+                    <label for="tags" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Inserisci i tag separati da virgola">
+                </div>
+
+                <!-- Pulsanti -->
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'home_libri' %}'">
+                        <i class="fas fa-arrow-left"></i> Indietro
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salva
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

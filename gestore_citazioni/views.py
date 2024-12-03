@@ -18,25 +18,6 @@ def home_autori(request):
 
 
 
-def citazioni_per_libro(request, libro):
-    context = {
-        'message': f"Citazioni per il libro {libro}"
-    }
-    return render(request, 'placeholder.html', context)
-
-def citazioni_per_autore(request, autore):
-    context = {
-        'message': f"Citazioni per l'autore {autore}"
-    }
-    return render(request, 'placeholder.html', context)
 
 
-
-
-
-def aggiungi_citazione(request):
-    context = {
-        'message': "Pagina per aggiungere una citazione"
-    }
-    return render(request, 'placeholder.html', context)
 

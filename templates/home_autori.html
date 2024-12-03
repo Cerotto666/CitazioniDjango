@@ -25,7 +25,7 @@
                 <div class="list-group" style="height: 300px; overflow-y: auto; border: 1px solid #ced4da; border-radius: 8px;">
                     {% if autori %}
                         {% for autore in autori %}
-                            <a href="{% url 'citazioni_per_autore' autore %}" 
+                            <a href="{% url 'citazioni' 'autore' autore %}" 
                                class="list-group-item list-group-item-action">
                                 <i class="fas fa-book-open text-primary"></i> {{ autore }}
                             </a>
@@ -44,9 +44,15 @@
                 <button class="btn btn-primary mb-3 w-100" onclick="window.location.href='{% url 'home_libri' %}'">
                     <i class="fas fa-user"></i> Libri
                 </button>
-                <button class="btn btn-success w-100" onclick="window.location.href='{% url 'aggiungi_citazione' %}'">
+                <button class="btn btn-success mb-3 w-100" onclick="window.location.href='{% url 'aggiungi_citazione' %}'">
                     <i class="fas fa-plus-circle"></i> Inserisci
                 </button>
+                <button class="btn btn-success w-100 d-flex justify-content-center align-items-center" onclick="window.location.href='{% url 'filtra' %}'">
+                    <i class="fas fa-filter me-2"></i> <!-- Icona Filtra -->
+                    <span>Filtra / Cancella</span>
+                    <i class="fas fa-times-circle ms-2"></i> <!-- Icona Cancella -->
+                </button>
+                
             </div>
         </div>
     </div>
