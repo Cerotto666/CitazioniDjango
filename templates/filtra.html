@@ -25,7 +25,7 @@
                     <label for="libro" class="form-label">Seleziona Libri</label>
                     <select id="libro" name="libro" class="form-select" multiple>
                         {% for libro in libri %}
-                        <option value="{{ libro }}">{{ libro }}</option>
+                        <option value="{{ libro }}" {% if libro in libri_selezionati %}selected{% endif %}>{{ libro }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -34,7 +34,7 @@
                     <label for="autore" class="form-label">Seleziona Autori</label>
                     <select id="autore" name="autore" class="form-select" multiple>
                         {% for autore in autori %}
-                        <option value="{{ autore }}">{{ autore }}</option>
+                        <option value="{{ autore }}" {% if autore in autori_selezionati %}selected{% endif %}>{{ autore }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -43,7 +43,7 @@
                     <label for="tags" class="form-label">Seleziona Tags</label>
                     <select id="tags" name="tags" class="form-select" multiple>
                         {% for tag in tags %}
-                        <option value="{{ tag }}">{{ tag }}</option>
+                        <option value="{{ tag }}" {% if tag in tags_selezionati %}selected{% endif %}>{{ tag }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -59,9 +59,20 @@
         <form id="delete-form" method="post" action="{% url 'cancella_citazioni' %}">
             {% csrf_token %}
 
-            <input type="hidden" name="libro" value="{{ request.GET.libro }}">
-            <input type="hidden" name="autore" value="{{ request.GET.autore }}">
-            <input type="hidden" name="tags" value="{{ request.GET.tags }}">
+            <!-- Per i libri -->
+            {% for libro in libri_selezionati %}
+            <input type="hidden" name="libro" value="{{ libro }}">
+            {% endfor %}
+            
+            <!-- Per gli autori -->
+            {% for autore in autori_selezionati %}
+                <input type="hidden" name="autore" value="{{ autore }}">
+            {% endfor %}
+            
+            <!-- Per i tag -->
+            {% for tag in tags_selezionati %}
+                <input type="hidden" name="tags" value="{{ tag }}">
+            {% endfor %}
             <ul class="list-group mb-4">
                 {% for citazione in citazioni %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
