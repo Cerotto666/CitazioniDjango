@@ -6,8 +6,6 @@ def aggiungi_citazione(request):
     return render(request, 'inserisci.html')
 
 def inserisci_citazione(request):
-    print("TUtto ok")
-    if request.method == 'POST':
         print("TUtto ok")
         libro = request.POST.get('libro')
         autore = request.POST.get('autore')
