@@ -1,9 +1,15 @@
 from django.shortcuts import redirect, render
 from inserisci.models import Citazione
+from filtra import utils as u
 
 def aggiungi_citazione(request):
-
-    return render(request, 'inserisci.html')
+    libri, autori, distinct_tags = u.var_menu_tendina()
+    context = {
+        'libri' : libri,
+        'autori' : autori,
+        'tags' : distinct_tags
+    }
+    return render(request, 'inserisci.html', context)
 
 def inserisci_citazione(request):
         print("TUtto ok")

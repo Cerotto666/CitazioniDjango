@@ -11,6 +11,27 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/inserisci.css' %}">
+    <script>
+        function selezionaAutore(nomeAutore) {
+            const inputAutore = document.getElementById("autore");
+            inputAutore.value = nomeAutore; // Sovrascrive il valore nel campo input
+        }
+        function selezionaLibro(nomeLibro) {
+            const inputLibro = document.getElementById("libro");
+            inputLibro.value = nomeLibro; // Sovrascrive il valore nel campo input
+        }
+        function selezionaTag(nomeTag) {
+            const inputTag = document.getElementById("tags");
+            let tagsCorrenti = inputTag.value.trim(); // Ottieni il valore corrente del campo input, rimuovendo eventuali spazi
+            if (tagsCorrenti) {
+                // Se ci sono già dei tag, aggiungi una virgola prima del nuovo tag
+                inputTag.value = tagsCorrenti + ', ' + nomeTag;
+            } else {
+                // Se non ci sono tag, inserisci direttamente il nuovo tag
+                inputTag.value = nomeTag;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -18,39 +39,118 @@
             <h1 class="text-center mb-4">
                 <i class="fas fa-quote-left text-primary"></i> Inserisci Citazione
             </h1>
-
+    
             <form method="post" action="{% url 'inserisci_citazione' %}">
                 {% csrf_token %}
+    
                 <!-- Campo Libro -->
                 <div class="mb-4">
                     <label for="libro" class="form-label">Libro</label>
-                    <input type="text" class="form-control" id="libro" name="libro" placeholder="Inserisci il nome del libro, ignoto se sconosciuto" required>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="libro" 
+                        name="libro" 
+                        placeholder="Inserisci il nome del libro, ignoto se sconosciuto" 
+                        required>
+                    <!-- Elenco dei libri -->
+                    <div class="mt-3">
+                        <div class="p-2 bg-light border rounded">
+                            <h6 class="text-primary mb-2">Seleziona un libro</h6>
+                            <ul class="list-group list-group-flush" id="elenco-libri" style="max-height: 200px; overflow-y: auto;">
+                                {% for libro in libri %}
+                                    <li 
+                                        class="list-group-item list-group-item-action" 
+                                        style="cursor: pointer;" 
+                                        onclick="selezionaLibro('{{ libro }}')">
+                                        {{ libro }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
+    
                 <!-- Campo Autore -->
                 <div class="mb-4">
                     <label for="autore" class="form-label">Autore</label>
-                    <input type="text" class="form-control" id="autore" name="autore" placeholder="Inserisci il nome dell'autore, ignoto se sconosciuto" required>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="autore" 
+                            name="autore" 
+                            placeholder="Inserisci il nome dell'autore, ignoto se sconosciuto" 
+                            required>
+                    </div>
+                    <!-- Elenco degli autori -->
+                    <div class="mt-3">
+                        <div class="p-2 bg-light border rounded">
+                            <h6 class="text-primary mb-2">Seleziona un autore</h6>
+                            <ul class="list-group list-group-flush" id="elenco-autori" style="max-height: 200px; overflow-y: auto;">
+                                {% for autore in autori %}
+                                    <li 
+                                        class="list-group-item list-group-item-action" 
+                                        style="cursor: pointer;" 
+                                        onclick="selezionaAutore('{{ autore }}')">
+                                        {{ autore }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
+    
                 <!-- Campo Citazione -->
                 <div class="mb-4">
                     <label for="citazione" class="form-label">Citazione</label>
-                    <textarea class="form-control" id="citazione" name="citazione" rows="4" placeholder="Inserisci la citazione" required></textarea>
+                    <textarea 
+                        class="form-control" 
+                        id="citazione" 
+                        name="citazione" 
+                        rows="4" 
+                        placeholder="Inserisci la citazione" 
+                        required></textarea>
                 </div>
-
+    
                 <!-- Campo Tags -->
                 <div class="mb-4">
                     <label for="tags" class="form-label">Tags</label>
-                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Inserisci i tag separati da virgola">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="tags" 
+                        name="tags" 
+                        placeholder="Inserisci i tag separati da virgola">
+                    <!-- Elenco dei tags -->
+                    <div class="mt-3">
+                        <div class="p-2 bg-light border rounded">
+                            <h6 class="text-primary mb-2">Seleziona un tag</h6>
+                            <ul class="list-group list-group-flush" id="elenco-tags" style="max-height: 200px; overflow-y: auto;">
+                                {% for tag in tags %}
+                                    <li 
+                                        class="list-group-item list-group-item-action" 
+                                        style="cursor: pointer;" 
+                                        onclick="selezionaTag('{{ tag }}')">
+                                        {{ tag }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
+    
                 <!-- Pulsanti -->
                 <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'home_libri' %}'">
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary" 
+                        onclick="window.location.href='{% url 'home_libri' %}'">
                         <i class="fas fa-arrow-left"></i> Indietro
                     </button>
-                    <button type="submit" class="btn btn-primary">
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary">
                         <i class="fas fa-save"></i> Salva
                     </button>
                 </div>
