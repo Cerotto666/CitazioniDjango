@@ -24,5 +24,5 @@ def inserisci_citazione(request):
         )
         
         return redirect('home_libri')  
+    #return render(request, 'inserisci_citazione.html')
 
-    return render(request, 'inserisci_citazione.html')
